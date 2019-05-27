@@ -1,29 +1,15 @@
 import React from 'react';
-import { List, ListItem, withStyles, ListItemText, Typography } from '@material-ui/core/'
+import ListGroup from 'react-bootstrap/ListGroup'
 
-const StyledListItem = withStyles({
-    root: {
-      backgroundColor: "white",
-    },
-  })(ListItem);
-
-const Repository = ( {data, onClick} ) => {
-    return (
-        <List>
-            <StyledListItem button onClick={() => onClick(data.url)}>
-                <ListItemText
-                    primary={data.name}
-                    secondary={
-                        <React.Fragment>
-                            <Typography component="span" color="textPrimary">
-                                {data.description}
-                            </Typography>
-                        </React.Fragment>
-                    }
-                />
-            </StyledListItem>
-        </List>
-    );
+const Repository = ( {data, onClick, currentRepoUrl} ) => {
+  return (
+  <ListGroup>
+    <ListGroup.Item action onClick={() => onClick(data.url)} active={data.url === currentRepoUrl}>
+      <h5> {data.name} </h5>
+      <p> {data.description} </p>
+    </ListGroup.Item>             
+  </ListGroup>
+  );
 }
 
 export default Repository;

@@ -1,84 +1,48 @@
 html {
-  height: 100vh;
+  height: 100%;
   overflow-y: hidden;
   overflow-x: hidden;
 }
-body {
-  background-color: #d8d8d8
-}
-.searchInput {
-  border: 1px solid black;
-  padding: 5px;
-  background-color: white;
+h1 {
+  position: absolute;
+  right: 40px;
+  top: 10px;
 }
 .splitScreen {
   display: flex;
   text-align: left;
-  height: 90vh;
-  width: 98vw;
+  height: 83vh;
 }
 .repoLeft {
-  flex: 0 0 50%;
-  overflow: scroll;
-  overflow-x: hidden;
-  margin-top: 23px;
+  flex: 1;
+  overflow-y: auto;
+  height: 100%;
 }
 .commitRight {
-  flex: 0 0 50%;
-  overflow: scroll;
-  overflow-x: hidden;
+  position: relative;
+  flex: 1;
+  overflow-y: scroll;
 }
-.commit {
-  padding: 10px;
-  background-color: #f2f6ff;
-  border: 1px solid #757575;
-  border-radius: 5px;
-  background-color: #f2f6ff;
-  -webkit-transition: background-color 0.4s ease-in-out;
-  transition: background-color 0.4s ease-in-out;
+.branchSelect {
+  width: 25%;
+  margin: 0 auto;
+  padding-top: 20px
 }
-.commit:hover {
-  background-color: #4a80ff
+form {
+  position: absolute;
+  height: 40px;
+  padding-top: 50px;
+  padding-left: 50px;
 }
-.commit a {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 14px;
-  text-decoration: none;
-  color: black;
+form input {
+  width: 240px;
+  height: 40px;
 }
-.commit span {
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: bold;
-  font-size: 12px;
-}
-.commit img {
-  float: left;
-  width: 24px;
-  height: 24px;
-  padding-right: 10px;
-}
-.repo {
-  padding: 10px;
-  border: 1px solid #757575;
-  border-radius: 5px;
-  background-color: #f2f6ff;
-  -webkit-transition: background-color 0.4s ease-in-out;
-  transition: background-color 0.4s ease-in-out;
-}
-.repo:hover {
-  background-color: #4a80ff;
-}
-.repo a {
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  text-decoration: none;
-  font-size: 18px;
-  font-weight: bold;
-}
-.repo span {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 16px;
-}
-
-.commitDesc {
-  font-size: 46px;
+img {
+  position: absolute;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  top:50%;
+  width: 60px;
+  height: 60px;
 }

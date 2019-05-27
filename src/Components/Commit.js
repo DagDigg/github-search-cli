@@ -1,38 +1,26 @@
 import React from 'react'
-import { List, ListItem, withStyles, ListItemText, ListItemAvatar, Avatar, Typography } from '@material-ui/core/'
-import * as myCostants from '../Constants'
-const StyledListItem = withStyles({
-    root: {
-      backgroundColor: "white",
-    },
-  })(ListItem);
-
+import ListGroup from 'react-bootstrap/ListGroup'
+import * as myConst from '../Constants'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 const Commit = ({data}) => {
-    const imgUrl = data.author ? data.author.avatar_url : myCostants.FALLBACK_IMAGE_URL
-    const formattedDate = data.commit.committer.date.replace(/T|Z/g,' ')
-    return(
-        <List>
-            <StyledListItem align-items='flex-start'>
-                <ListItemAvatar>
-                    <Avatar src={imgUrl} />
-                </ListItemAvatar>
-                
-                <ListItemText
-                    primary={
-                        <Typography component='a' href={data.html_url}> {data.commit.message} </Typography>
-                    }
-                    secondary={
-                        <React.Fragment>
-                            <Typography component='span' color='textSecondary'>
-                                {data.commit.committer.name} on {formattedDate}
-                            </Typography>
-                        </React.Fragment>
-                    }
-                />
-                
-            </StyledListItem>
-        </List>
-    )
+  const formattedDate = data.commit.committer.date.replace(/T|Z/g,' ')
+  const message = data.commit.message.length < 200 ? data.commit.message : data.commit.message.slice(0,200) + ' ...'
+  return(
+    <ListGroup>
+      <ListGroup.Item href={data.html_url} target='_BLANK'>
+        <Row>
+          <Col sm={2}>
+            <img src={data.committer ? data.committer.avatar_url : myConst.FALLBACK_IMAGE_URL} rounded />
+          </Col>
+          <Col>
+            <p> {message} </p>
+            <span> {data.commit.committer.name} on {formattedDate} </span>
+          </Col>
+        </Row>
+      </ListGroup.Item>
+    </ListGroup>
+  )
 }
 
 export default Commit;

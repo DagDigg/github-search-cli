@@ -3,7 +3,7 @@ import SearchBar from './Components/SearchBar'
 import Splitscreen from './Components/Splitscreen'
 import Repository from './Components/Repository';
 import Commit from './Components/Commit'
-import LinearProgress from '@material-ui/core/LinearProgress';
+import Spinner from 'react-bootstrap/Spinner'
 import { fetchRepos, fetchCommits, fetchBranches } from './Components/Api'
 import * as myCostants from './Constants'
 
@@ -28,7 +28,7 @@ export default class App extends Component {
     const repos = await fetchRepos(query, user)
     this.setState({ repositories: repos.items ? repos.items : [], loading: false, commits: [], branches: [] })
   }
-  //Fetch branches function. Auto-Resolves once state is set. Sets default sha of the first branch found
+  //Fetch branches function. Sets default sha of the first branch found
   fetchBranches = async (url) => {
     const branches = await fetchBranches(url)
     const defaultSha = branches[0].commit.sha
@@ -53,25 +53,30 @@ export default class App extends Component {
   render() {
     return (  
       <div className="App">
-        {/* SearchBar component */}
-        <SearchBar onSearch={this.fetchRepos} />
-        {/* SplitScreen: left repositories, right commits */}
+        <header>
+          <h1>Github.search</h1>
+        </header>
+        <body>
+          {/* SearchBar component */}
+          <SearchBar onSearch={this.fetchRepos} />
+          {/* SplitScreen: left repositories, right commits */}
           {
             (this.state.loading) ? 
-              <LinearProgress /> : 
+              <Spinner style={{textAlign: 'center'}} animation='grow' /> : 
               <Splitscreen
                 branches={this.state.branches} 
                 onClick={this.handleBranchChange}
                 left={
                   (this.state.repositories.length) ?
                   this.state.repositories.map((repo,idx) => {
-                  return <Repository key={idx} data={repo} onClick={this.onRepoClick} />
+                  return <Repository key={idx} data={repo} onClick={this.onRepoClick} currentRepoUrl={this.state.currentRepoUrl} />
                 }) : <p> {myCostants.NO_REPOS_ERR} </p>}
                 right={this.state.commits.map((commit,idx) => {
-                  return <Commit key={idx} data={commit} onClick={this.onBranchClick} />
+                  return <Commit key={idx} data={commit} onClick={this.handleBranchChange} />
                 })}
               />
           }
+        </body>
       </div>
     );
   }
