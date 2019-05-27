@@ -8,13 +8,13 @@ const Commit = ({data}) => {
   const message = data.commit.message.length < 200 ? data.commit.message : data.commit.message.slice(0,200) + ' ...'
   return(
     <ListGroup>
-      <ListGroup.Item href={data.html_url} target='_BLANK'>
+      <ListGroup.Item>
         <Row>
           <Col sm={2}>
             <img src={data.committer ? data.committer.avatar_url : myConst.FALLBACK_IMAGE_URL} rounded />
           </Col>
           <Col>
-            <p> {message} </p>
+            <a  href={data.html_url} target='_BLANK'> {message} </a> <br />
             <span> {data.commit.committer.name} on {formattedDate} </span>
           </Col>
         </Row>
